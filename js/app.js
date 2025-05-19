@@ -1,5 +1,5 @@
 const spaces = document.querySelectorAll('.boardSpace');
-const battleshipSpace = Math.floor(Math.random() * 9);
+let battleshipSpace = Math.floor(Math.random() * 9);
 
 spaces.forEach(boardSpace => {
     boardSpace.addEventListener('click', () => {
@@ -10,8 +10,22 @@ spaces.forEach(boardSpace => {
         if (index === battleshipSpace) {
             boardSpace.classList.add('correct');
             alert('You sank the battleship');
+            playAgainButton.classList.remove('hidden');
         } else {
             boardSpace.classList.add('incorrect');
         }
     });
 });
+
+const playAgainButton = document.getElementById('playAgain');
+
+function resetGame() {
+    spaces.forEach(space => {
+        space.classList.remove('correct', 'incorrect');
+        space.style.cursor = 'pointer';
+    });
+    battleshipSpace = Math.floor(Math.random() * 9);
+    playAgainButton.classList.add('hidden');
+}
+
+playAgainButton.addEventListener('click', resetGame);
